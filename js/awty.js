@@ -367,7 +367,7 @@ awty.onZippyClick = function(e) {
   var nextSibling = goog.dom.getNextElementSibling(event.target);
   while (nextSibling) {
     nextSibling = goog.dom.getNextElementSibling(nextSibling);
-    if (goog.dom.classes.has(nextSibling, 'features')) {
+    if (goog.dom.classlist.contains(nextSibling, 'features')) {
       break;
     }
   }
@@ -731,7 +731,7 @@ awty.renderFeature = function(feature, container, editable,
       awty.dataStore.userTimeData[task.owner][2] +=
           parseFloat(task.actualTime);
 
-      goog.dom.classes.add(taskEl, backgroundColorCounter % 2 == 0 ?
+      goog.dom.classlist.add(taskEl, backgroundColorCounter % 2 == 0 ?
            'task_even' : 'task_odd');
       goog.dom.appendChild(tasksListEl, taskEl);
       featureCurrentEstimate += parseFloat(task.currentEstimatedTime);
@@ -927,7 +927,7 @@ awty.editEntity = function(type, entity) {
     awty.cancelCurrentEdit();
     return true;
   }
-  if (!goog.dom.classes.has(entity, awty.EDITABLE_CLASS)) {
+  if (!goog.dom.classlist.contains(entity, awty.EDITABLE_CLASS)) {
     // Pass the event on to the parent.
     if (entity.parentNode) {
       return awty.editEntity(type, entity.parentNode);
@@ -1043,7 +1043,7 @@ awty.createEntity = function(elToReplace, type, properties, userInfo,
         'type': 'text',
         'name': property.name,
         'placeholder': property.label,
-        'size': property.size,
+        'size': property.size || 10,
         'hidden': property.hidden,
         'title': property.label,
         'onfocus': awty.onInputFocus,
@@ -1176,7 +1176,7 @@ awty.findFeatureNodeForTask = function(node) {
   if (!node) {
     return null;
   }
-  if (goog.dom.classes.has(node, 'feature')) {
+  if (goog.dom.classlist.contains(node, 'feature')) {
     return node;
   } else {
     return awty.findFeatureNodeForTask(node.parentNode);
@@ -1249,7 +1249,7 @@ awty.saveEntity = function(container, type) {
             awty.EntityType.FEATURE),
         parentNode, awty.isCurrentPageEditable(),
         true,
-        goog.dom.classes.has(featureNode, 'onlyDone'),
+        goog.dom.classlist.contains(featureNode, 'onlyDone'),
         featureNode /* nodeToReplace */, true /* incremental */);
   } else if (type == awty.EntityType.FEATURE) {
     awty.renderFeature(dataElement,
@@ -1275,7 +1275,7 @@ awty.saveEntity = function(container, type) {
  */
 awty.getEntityTypeFromElement = function(element) {
   for (var entityType in awty.EntityType) {
-    if (goog.dom.classes.has(element, awty.EntityType[entityType])) {
+    if (goog.dom.classlist.contains(element, awty.EntityType[entityType])) {
       return awty.EntityType[entityType];
     }
   }

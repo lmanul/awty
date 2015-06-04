@@ -22,6 +22,7 @@ from google.appengine.ext.webapp import template
  
 
 import urllib
+import webapp2
 
 from models import *
 from util import *
@@ -63,7 +64,7 @@ class CreateSubprojectHandler(webapp2.RequestHandler):
     subproject.put()
 
 
-  app = webapp2.WSGIApplication(
-          [
-            ('/(.*)/createsubproject', CreateSubprojectHandler)
-          ], debug=True)
+app = webapp2.WSGIApplication(
+        [
+          ('/(.*)/createsubproject', CreateSubprojectHandler)
+        ], debug=True)

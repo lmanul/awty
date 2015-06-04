@@ -24,6 +24,7 @@ from google.appengine.ext.webapp import template
 
 import simplejson as json
 import urllib
+import webapp2
 
 from models import *
 from util import *
@@ -52,7 +53,7 @@ class MilestoneHandler(webapp2.RequestHandler):
       'content': '<div id="chart">Drawing...</div>'
     });
     criticalPathRendered = template.render('section.html', {
-      'title': 'Time re
+      'title': 'Time remaining for this milestone per user',
       'section_id': 'critical_path',
       'content': 'Loading...'
     });

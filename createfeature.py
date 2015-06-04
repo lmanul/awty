@@ -20,8 +20,8 @@ from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
  
-
 import urllib
+import webapp2
 
 from models import *
 from util import *
@@ -73,10 +73,10 @@ class CreateFeatureHandler(webapp2.RequestHandler):
     feature.put()
 
 
-  app = webapp2.WSGIApplication(
-          [
-            ('/(.*)/createfeature', CreateFeatureHandler)
-          ], debug=True)
+app = webapp2.WSGIApplication(
+        [
+          ('/(.*)/createfeature', CreateFeatureHandler)
+        ], debug=True)
 
   
 
