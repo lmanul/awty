@@ -24,6 +24,7 @@ from google.appengine.ext.webapp import template
 import datetime
 import simplejson as json
 import urllib
+import webapp2
 
 from models import *
 from util import *
@@ -60,12 +61,12 @@ class ExportHandler(webapp2.RequestHandler):
               str(task.currentEstimatedTime), str(task.actualTime)])
     now = datetime.datetime.now()
     self.response.headers['Content-Disposition'] = \
-        'attachment;filename=' + project.code + '-' + str(now.year) + '.' + \
-            str(now.month) + '.' + str(now.day) + '.csv'
+        str('attachment;filename=' + project.code + '-' + str(now.year) + '.' + \
+            str(now.month) + '.' + str(now.day) + '.csv')
     self.response.out.write(output)
 
 
 app = webapp2.WSGIApplication(
-        [
-          ('/([^/]*)/export', ExportHandler),
-        ], debug=True)
+      [
+        ('/([^/]*)/export', ExportHandler),
+      ], debug=True)
