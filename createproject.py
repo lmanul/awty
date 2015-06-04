@@ -19,17 +19,19 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
+ 
 
 from models import Project
 from util import *
 
-class CreateProjectHandler(webapp.RequestHandler):
+import webapp2
+
+class CreateProjectHandler(webapp2.RequestHandler):
   def get(self):
     self.response.out.write(
         template.render('createproject.html', {}))
 
-class CreateProjectActionHandler(webapp.RequestHandler):
+class CreateProjectActionHandler(webapp2.RequestHandler):
   def post(self):
     title = self.request.POST.get('title')
     code = self.request.POST.get('code')
@@ -38,14 +40,9 @@ class CreateProjectActionHandler(webapp.RequestHandler):
     project.put()
     self.redirect('/' + project.code + '/organize')
 
-def main():
-    application = webapp.WSGIApplication(
-          [
-            ('/createproject', CreateProjectHandler),
-            ('/createprojectaction', CreateProjectActionHandler)
-          ], debug=True)
-    run_wsgi_app(application)
-
-if __name__ == '__main__':
-  main()
+app = webapp2.WSGIApplication(
+      [
+        ('/createproject', CreateProjectHandler),
+        ('/createprojectaction', CreateProjectActionHandler)
+      ], debug=True)
 

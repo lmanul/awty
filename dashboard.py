@@ -19,7 +19,7 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
+ 
 
 import simplejson as json
 import urllib
@@ -27,7 +27,7 @@ import urllib
 from models import *
 from util import *
 
-class DashboardHandler(webapp.RequestHandler):
+class DashboardHandler(webapp2.RequestHandler):
   def get(self, projectParam, currentUser):
     projectCode = urllib.unquote(projectParam)
     project = Project.gql("WHERE code = '" + projectCode + "'").get()
@@ -73,7 +73,7 @@ class DashboardHandler(webapp.RequestHandler):
       'content': dashboardRendered
     }))
 
-class DashboardDataHandler(webapp.RequestHandler):
+class DashboardDataHandler(webapp2.RequestHandler):
   def get(self, projectParam, currentUser):
     myTasks = Task.gql("WHERE owner = '" + currentUser + "'")
 
@@ -103,13 +103,9 @@ class DashboardDataHandler(webapp.RequestHandler):
     returnData = [mySubprojectsArray, myFeaturesArray, myTasksArray]
     self.response.out.write(json.dumps(returnData))
 
-def main():
-  application = webapp.WSGIApplication(
-        [
-          ('/([^/]*)/dashboard/([^/]*)/data', DashboardDataHandler),
-          ('/([^/]*)/dashboard/([^/]*)', DashboardHandler),
-        ], debug=True)
-  run_wsgi_app(application)
-  
-if __name__ == '__main__':
-  main()
+app = webapp2.WSGIApplication(
+      [
+        ('/([^/]*)/dashboard/([^/]*)/data', DashboardDataHandler),
+        ('/([^/]*)/dashboard/([^/]*)', DashboardHandler),
+      ], debug=True)
+

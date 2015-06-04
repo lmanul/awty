@@ -19,14 +19,14 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
+ 
 
 import urllib
 
 from models import *
 from util import *
 
-class CreateFeatureHandler(webapp.RequestHandler):
+class CreateFeatureHandler(webapp2.RequestHandler):
   def getOptionalNumberParam(self, paramName):
     paramString = self.request.GET.get(paramName)
     if paramString == None:
@@ -72,13 +72,11 @@ class CreateFeatureHandler(webapp.RequestHandler):
       previousFeature.delete()
     feature.put()
 
-def main():
-    application = webapp.WSGIApplication(
+
+  app = webapp2.WSGIApplication(
           [
             ('/(.*)/createfeature', CreateFeatureHandler)
           ], debug=True)
-    run_wsgi_app(application)
 
-if __name__ == '__main__':
-  main()
+  
 

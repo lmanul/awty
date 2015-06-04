@@ -18,15 +18,16 @@ from google.appengine.api import users
 
 from google.appengine.ext import db
 from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
+ 
 
 import datetime
 import urllib
+import webapp2
 
 from models import *
 from util import *
 
-class SnapshotHandler(webapp.RequestHandler):
+class SnapshotHandler(webapp2.RequestHandler):
   def get(self, projectCodeParam):
     projectCode = urllib.unquote(projectCodeParam)
     project = Project.gql("WHERE code = '" + projectCode + "'").get()
@@ -67,13 +68,8 @@ class SnapshotHandler(webapp.RequestHandler):
     self.response.out.write('OK')
     # TODO(manucornet): Invalidate cache for burndown charts.
 
-def main():
-    application = webapp.WSGIApplication(
-          [
-            ('/(.*)/snapshot', SnapshotHandler),
-          ], debug=True)
-    run_wsgi_app(application)
 
-if __name__ == '__main__':
-  main()
-
+app = webapp2.WSGIApplication(
+        [
+          ('/(.*)/snapshot', SnapshotHandler),
+        ], debug=True)

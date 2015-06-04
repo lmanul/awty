@@ -19,15 +19,16 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
+ 
 
 import simplejson as json
 import urllib
+import webapp2
 
 from models import *
 from util import *
 
-class OrganizeHandler(webapp.RequestHandler):
+class OrganizeHandler(webapp2.RequestHandler):
   def get(self, resource):
     projectCode = urllib.unquote(resource)
     project = Project.gql("WHERE code = '" + projectCode + "'").get()
@@ -70,7 +71,7 @@ class OrganizeHandler(webapp.RequestHandler):
       'content': organizeRendered + doneRendered
     }))
 
-class OrganizeDataHandler(webapp.RequestHandler):
+class OrganizeDataHandler(webapp2.RequestHandler):
   def get(self, projectParam):
     # TODO(manucornet): Restrict to this project.
     subprojectsArray = []
@@ -88,14 +89,9 @@ class OrganizeDataHandler(webapp.RequestHandler):
     returnData = [subprojectsArray, featuresArray, tasksArray]
     self.response.out.write(json.dumps(returnData))
 
-def main():
-  application = webapp.WSGIApplication(
-        [
-          ('/(.*)/organizedata', OrganizeDataHandler),
-          ('/(.*)/organize', OrganizeHandler),
-        ], debug=True)
-  run_wsgi_app(application)
-
-if __name__ == '__main__':
-  main()
+app = webapp2.WSGIApplication(
+      [
+        ('/(.*)/organizedata', OrganizeDataHandler),
+        ('/(.*)/organize', OrganizeHandler),
+      ], debug=True)
 

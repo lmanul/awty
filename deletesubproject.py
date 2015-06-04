@@ -18,14 +18,14 @@ from google.appengine.api import users
 
 from google.appengine.ext import db
 from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
+ 
 
 import urllib
 
 from models import *
 from util import *
 
-class DeleteSubprojectHandler(webapp.RequestHandler):
+class DeleteSubprojectHandler(webapp2.RequestHandler):
   def get(self, projectCodeParam):
     projectCode = urllib.unquote(projectCodeParam)
     project = Project.gql("WHERE code = '" + projectCode + "'").get()
@@ -59,13 +59,8 @@ class DeleteSubprojectHandler(webapp.RequestHandler):
         t.delete()
       f.delete()
 
-def main():
-    application = webapp.WSGIApplication(
+
+  app = webapp2.WSGIApplication(
           [
             ('/(.*)/deletesubproject', DeleteSubprojectHandler),
           ], debug=True)
-    run_wsgi_app(application)
-
-if __name__ == '__main__':
-  main()
-

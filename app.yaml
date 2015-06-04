@@ -1,7 +1,8 @@
 application: google.com:tracker
 version: 3
-runtime: python
+runtime: python27
 api_version: 1
+threadsafe: true
 
 # Admin stuff
 
@@ -28,98 +29,98 @@ handlers:
 # Data requests views
 
 - url: /.*/organizedata
-  script: organize.py
+  script: organize.app
   login: required
 
 - url: /[^/]*/tag/[^/]*/data
-  script: milestone.py
+  script: milestone.app
   login: required
 
 - url: /[^/]*/tag/[^/]*/chartdata
-  script: milestone.py
+  script: milestone.app
   login: required
 
 - url: /[^/]*/dashboard/[^/]*/data
-  script: dashboard.py
+  script: dashboard.app
   login: required
 
 - url: /[^/]*/export
-  script: export.py
+  script: export.app
   login: required
 
 - url: /whoami
-  script: whoami.py
+  script: whoami.app
   login: required
 
 # Main views
 
 - url: /[^/]*/organize
-  script: organize.py
+  script: organize.app
   login: required
 
 - url: /[^/]*/tag/.*
-  script: milestone.py
+  script: milestone.app
   login: required
 
 - url: /[^/]*/dashboard/[^/]*
-  script: dashboard.py
+  script: dashboard.app
   login: required
 
 - url: /[^/]*/snapshot
-  script: snapshot.py
+  script: snapshot.app
   login: required
 
 - url: /[^/]*/progress
-  script: progress.py
+  script: progress.app
   login: required
 
 - url: /dailysnapundiscoverableurl
-  script: dailysnap.py
+  script: dailysnap.app
 
 - url: /[^/]*/progressdata/[^/]*
-  script: progress.py
+  script: progress.app
   login: required
 
 # Entity Creation and modification
 
 - url: /createproject
-  script: createproject.py
+  script: createproject.app
   login: required
 
 - url: /createprojectaction
-  script: createproject.py
+  script: createproject.app
   login: required
 
 - url: /.*/createsubproject
-  script: createsubproject.py
+  script: createsubproject.app
   login: required
 
 - url: /.*/createfeature
-  script: createfeature.py
+  script: createfeature.app
   login: required
 
 # Task modification is allowed from dashboard and organize
 - url: /[^/]*/createtask
-  script: createtask.py
+  script: createtask.app
   login: required
 
 # Entity Deletion
 
 - url: /[^/]*/deletesubproject
-  script: deletesubproject.py
+  script: deletesubproject.app
   login: required
 
 - url: /[^/]*/deletetask
-  script: deletetask.py
+  script: deletetask.app
   login: required
 
 - url: /[^/]*/deletefeature
-  script: deletefeature.py
+  script: deletefeature.app
   login: required
 
 # If all else fails, show the default "home" page
 - url: /.*
-  script: home.py
+  script: home.app
   login: required
 
 # Ignore closure, JS should be compiled before deploying

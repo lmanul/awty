@@ -19,15 +19,16 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
+ 
 
 import simplejson as json
 import urllib
+import webapp2
 
 from models import *
 from util import *
 
-class HomeHandler(webapp.RequestHandler):
+class HomeHandler(webapp2.RequestHandler):
   def get(self, resource):
     userName = Util.getUsernameFromEmail(users.get_current_user().email())
     projectCodeParam = urllib.unquote(resource)
@@ -103,13 +104,8 @@ class HomeHandler(webapp.RequestHandler):
       'milestones': milestones
     }))
 
-def main():
-  application = webapp.WSGIApplication(
-        [
-          ('/(.*)', HomeHandler),
-        ], debug=True)
-  run_wsgi_app(application)
-
-if __name__ == '__main__':
-  main()
+app = webapp2.WSGIApplication(
+      [
+        ('/(.*)', HomeHandler),
+      ], debug=True)
 

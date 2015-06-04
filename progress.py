@@ -19,15 +19,16 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
+ 
 
 import simplejson as json
 import urllib
+import webapp2
 
 from models import *
 from util import *
 
-class ProgressHandler(webapp.RequestHandler):
+class ProgressHandler(webapp2.RequestHandler):
   def get(self, projectParam):
     projectCode = urllib.unquote(projectParam)
     project = Project.gql("WHERE code = '" + projectCode + "'").get()
@@ -68,7 +69,7 @@ class ProgressHandler(webapp.RequestHandler):
       'content': progressChoiceRendered
     }))
 
-class ProgressDataHandler(webapp.RequestHandler):
+class ProgressDataHandler(webapp2.RequestHandler):
   def get(self, projectParam, snapshotCodeParam):
     projectCode = urllib.unquote(projectParam)
     snapshotCode = urllib.unquote(snapshotCodeParam)
@@ -101,13 +102,11 @@ class ProgressDataHandler(webapp.RequestHandler):
     returnData = taskProgressItems
     self.response.out.write(json.dumps(returnData))
 
-def main():
-  application = webapp.WSGIApplication(
+
+app = webapp2.WSGIApplication(
         [
           ('/([^/]*)/progress', ProgressHandler),
           ('/([^/]*)/progressdata/([^/]*)', ProgressDataHandler),
         ], debug=True)
-  run_wsgi_app(application)
+
   
-if __name__ == '__main__':
-  main()

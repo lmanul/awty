@@ -20,7 +20,7 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
+ 
 
 import simplejson as json
 import urllib
@@ -31,7 +31,7 @@ from util import *
 import datetime
 import logging
 
-class MilestoneHandler(webapp.RequestHandler):
+class MilestoneHandler(webapp2.RequestHandler):
   def get(self, projectParam, milestoneParam):
     projectCode = urllib.unquote(projectParam)
     project = Project.gql("WHERE code = '" + projectCode + "'").get()
@@ -52,7 +52,7 @@ class MilestoneHandler(webapp.RequestHandler):
       'content': '<div id="chart">Drawing...</div>'
     });
     criticalPathRendered = template.render('section.html', {
-      'title': 'Time remaining for this milestone per user',
+      'title': 'Time re
       'section_id': 'critical_path',
       'content': 'Loading...'
     });
@@ -84,7 +84,7 @@ class MilestoneHandler(webapp.RequestHandler):
       'content': milestoneRendered + chartElement + criticalPathRendered + doneRendered
     }))
 
-class MilestoneDataHandler(webapp.RequestHandler):
+class MilestoneDataHandler(webapp2.RequestHandler):
   def get(self, projectParam, milestoneParam):
     projectCode = urllib.unquote(projectParam)
     cacheKey = projectCode + '_' + milestoneParam + '_milestoneData'
@@ -115,7 +115,7 @@ class MilestoneDataHandler(webapp.RequestHandler):
     #if not memcache.add(cacheKey, returnData, 21600): # Expire in 6 hours
     #  logging.error("Memcache set failed.")
 
-class MilestoneChartDataHandler(webapp.RequestHandler):
+class MilestoneChartDataHandler(webapp2.RequestHandler):
   def get(self, projectParam, milestoneParam):
     projectCode = urllib.unquote(projectParam)
     #cacheKey = projectCode + '_' + milestoneParam + '_chartData'
@@ -154,14 +154,10 @@ class MilestoneChartDataHandler(webapp.RequestHandler):
     #if not memcache.add(cacheKey, arrayData, 7200): # Expire in 2 hours
     #  logging.error("Memcache set failed.")
 
-def main():
-  application = webapp.WSGIApplication(
-        [
-          ('/([^/]*)/tag/([^/]*)/data', MilestoneDataHandler),
-          ('/([^/]*)/tag/([^/]*)/chartdata', MilestoneChartDataHandler),
-          ('/([^/]*)/tag/(.*)', MilestoneHandler),
-        ], debug=True)
-  run_wsgi_app(application)
-  
-if __name__ == '__main__':
-  main()
+app = webapp2.WSGIApplication(
+      [
+        ('/([^/]*)/tag/([^/]*)/data', MilestoneDataHandler),
+        ('/([^/]*)/tag/([^/]*)/chartdata', MilestoneChartDataHandler),
+        ('/([^/]*)/tag/(.*)', MilestoneHandler),
+      ], debug=True)
+

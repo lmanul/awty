@@ -17,21 +17,18 @@
 from google.appengine.api import users
 
 from google.appengine.ext import webapp
-from google.appengine.ext.webapp.util import run_wsgi_app
+ 
 
 from util import *
 
-class WhoAmIHandler(webapp.RequestHandler):
+import webapp2
+
+class WhoAmIHandler(webapp2.RequestHandler):
   def get(self):
     self.response.out.write(Util.getUsernameFromEmail(users.get_current_user().email()))
 
-def main():
-    application = webapp.WSGIApplication(
-          [
-            ('/whoami', WhoAmIHandler),
-          ], debug=True)
-    run_wsgi_app(application)
-
-if __name__ == '__main__':
-  main()
+app = webapp2.WSGIApplication(
+      [
+        ('/whoami', WhoAmIHandler),
+      ], debug=True)
 

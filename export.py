@@ -19,7 +19,7 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
+ 
 
 import datetime
 import simplejson as json
@@ -28,7 +28,7 @@ import urllib
 from models import *
 from util import *
 
-class ExportHandler(webapp.RequestHandler):
+class ExportHandler(webapp2.RequestHandler):
   def get(self, projectParam):
     projectCode = urllib.unquote(projectParam)
     project = Project.gql("WHERE code = '" + projectCode + "'").get()
@@ -64,12 +64,8 @@ class ExportHandler(webapp.RequestHandler):
             str(now.month) + '.' + str(now.day) + '.csv'
     self.response.out.write(output)
 
-def main():
-  application = webapp.WSGIApplication(
+
+app = webapp2.WSGIApplication(
         [
           ('/([^/]*)/export', ExportHandler),
         ], debug=True)
-  run_wsgi_app(application)
-  
-if __name__ == '__main__':
-  main()

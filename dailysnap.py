@@ -20,10 +20,11 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
-from google.appengine.ext.webapp.util import run_wsgi_app
+ 
 
 import simplejson as json
 import urllib
+import webapp2
 
 from models import *
 from util import *
@@ -31,7 +32,7 @@ from util import *
 import datetime
 import logging
 
-class DailySnapHandler(webapp.RequestHandler):
+class DailySnapHandler(webapp2.RequestHandler):
   def addToDailyTagSnaps(self, snapA, origEst, currEst, actual):
     snapA.originalEstimatedTime = snapA.originalEstimatedTime + origEst
     snapA.currentEstimatedTime = snapA.currentEstimatedTime + currEst
@@ -73,12 +74,8 @@ class DailySnapHandler(webapp.RequestHandler):
           existingTagSnap.delete()
         dailyTagSnapsToSave[tag].put()
 
-def main():
-  application = webapp.WSGIApplication(
+
+app = webapp2.WSGIApplication(
         [
           ('/dailysnapundiscoverableurl', DailySnapHandler),
         ], debug=True)
-  run_wsgi_app(application)
-  
-if __name__ == '__main__':
-  main()
