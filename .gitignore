@@ -1,3 +1,5 @@
 js/closure*
 js/awty-compiled.js
 *.pyc
+*~
+simplejson
