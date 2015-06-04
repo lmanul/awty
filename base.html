@@ -39,7 +39,7 @@
     <script type="text/javascript" src="/js/awty-compiled.js"></script>
   </head>
   <body {% if onloadFunction %}onload="{{ onloadFunction }}()"{% endif %}>
-    <div id="logo"><img src="/images/logo.png" title="Are We There Yet?" /></div>
+    <a href="/"><div id="logo"><img src="/images/logo.png" title="Are We There Yet?" /></div></a>
     <div id="login_info">
       {{ current_user }} |
       {% if project_name %}
