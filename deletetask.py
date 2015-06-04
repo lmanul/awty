@@ -19,8 +19,8 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
  
-
 import urllib
+import webapp2
 
 from models import *
 from util import *
@@ -51,8 +51,7 @@ class DeleteTaskHandler(webapp2.RequestHandler):
     #  return
     task.delete()
 
-
-  app = webapp2.WSGIApplication(
-          [
-            ('/(.*)/deletetask', DeleteTaskHandler),
-          ], debug=True)
+app = webapp2.WSGIApplication(
+      [
+        ('/(.*)/deletetask', DeleteTaskHandler),
+      ], debug=True)
