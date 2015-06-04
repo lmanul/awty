@@ -1,0 +1,39 @@
+########################################################################
+########################################################################
+##########################                     #########################
+##########################   Getting Started   #########################
+##########################                     #########################
+########################################################################
+########################################################################
+
+* Download the Closure library into the js directory:
+
+    cd js
+    svn checkout http://closure-library.googlecode.com/svn/trunk/ closure-library
+
+* Download the Closure compiler:
+
+    mkdir closure-compiler
+    cd closure-compiler
+    wget http://closure-compiler.googlecode.com/files/compiler-latest.zip
+    unzip compiler-latest.zip
+
+* Compile the Javascript code:
+
+  cd ..
+  ./compile_js
+
+* For faster local development without recompiling the Javascript code with
+  each change, you can modify the base.html file:
+  - Uncomment the script tag for the Closure base.js file
+  - Uncomment the script tags for the JS dependency files.
+  - Change awty-compiled.js to awty.js
+
+* AWTY is an App Engine application, in order to deploy it you'll need to
+  upload it to one of your App Engine applications. Please refer to the
+  Google App Engine guide:
+
+    http://code.google.com/appengine/docs/python/gettingstarted/
+
+* You'll need to change the app ID to yours in the app.yaml file before
+  deploying the app.

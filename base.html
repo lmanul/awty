@@ -1,0 +1,71 @@
+<!--
+  Copyright 2011 Google Inc.
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+     http: www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ 
+-->
+
+<html>
+  <head>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="icon" href="/images/favicon.png" />
+    <title>{% if project_name %}{{project_name}} - {% endif %}Awty</title>
+    <!-- TODO(manucornet): Restore compilation step for all files. -->
+    <!-- For deployment to production, comment out the lines below, change "awty.js" to
+         "awty-compiled.js" and run compile_js from the js directory -->
+    <!--<script type="text/javascript" src="/js/closure-library/closure/goog/base.js"></script>-->
+
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {'packages':['annotatedtimeline']});
+    </script>
+
+    <!--
+    <script type="text/javascript" src="/js/chartmaker.js"></script>
+    <script type="text/javascript" src="/js/datastore.js"></script>
+    <script type="text/javascript" src="/js/util.js"></script>
+    -->
+
+    <script type="text/javascript" src="/js/awty-compiled.js"></script>
+  </head>
+  <body {% if onloadFunction %}onload="{{ onloadFunction }}()"{% endif %}>
+    <div id="logo"><img src="/images/logo.png" /></div>
+    <div id="login_info">
+      {{ current_user }} |
+      {% if project_name %}
+        <a href="/{{ project_code }}">{{ project_name }} Home</a> |
+      {% else %}
+        <a href="/">My Home</a>
+      {% endif %}
+
+      {% if project_name %}
+        <a href="/{{ project_code }}/dashboard/{{ current_user }}"
+          title="Only your active stuff">Dashboard</a> |
+        <a href="/{{ project_code }}/organize" title="Add and organize tasks">Organize</a> |
+        <a href="/{{ project_code }}/progress" title="What's cookin'">Progress</a> |
+        <a href="https://docs.google.com/a/google.com/spreadsheet/ccc?key=0Ao2QTtxLlLsydC10dThCZmxKV3BDRnF6ZjBpczRUanc" target="_new">File a bug</a>
+        {% if milestones %}
+          | <span id="milestones_menu_anchor" title="Progress on specific milestones">Tags
+              <small>&#9660;</small></span>
+          <div id="milestones_menu" for="milestones_menu_anchor" class="goog-menu" style="display:none"> 
+            {% for milestone in milestones %}
+            <a href="/{{ project_code }}/tag/{{ milestone }}">
+              <div class="goog-menuitem">{{ milestone }}</div></a>
+            {% endfor %}
+          </div>     
+         {% endif %}
+       {% endif %}
+    </div>
+    {{ content }}
+  </body>
+</html>

@@ -1,0 +1,22 @@
+#!/usr/bin/python
+
+import os
+
+mainInputFileName = "awty.js"
+otherFiles = ""
+outputFileName = mainInputFileName.replace(".js", "-compiled.js")
+
+calcdeps = "closure-library/closure/bin/calcdeps.py"
+compilerJar = "closure-compiler/compiler.jar"
+calcdepsOptions = "-i " + mainInputFileName + " " + otherFiles + " " + \
+    "-p . " + \
+    "-o compiled " + \
+    "-c " + compilerJar + \
+    " > " + \
+    outputFileName
+fullCommand = calcdeps + " " + calcdepsOptions
+print fullCommand + "..."
+os.system(fullCommand)
+
+os.system("chmod a+r " + outputFileName)
+

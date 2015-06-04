@@ -1,0 +1,5 @@
+cron:
+- description: Daily snap
+  url: /dailysnapundiscoverableurl
+  schedule: every mon,tue,wed,thu,fri 00:30
+  timezone: America/Los_Angeles

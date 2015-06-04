@@ -1,0 +1,128 @@
+application: google.com:tracker
+version: 3
+runtime: python
+api_version: 1
+
+# Admin stuff
+
+admin_console:
+  pages:
+  - name: My Console
+    url: /admin/interactive
+  - name: My Memcache
+    url: /admin/memcache
+
+handlers:
+
+# Static files
+
+- url: /css
+  static_dir: css
+
+- url: /images
+  static_dir: images
+
+- url: /js
+  static_dir: js
+
+# Data requests views
+
+- url: /.*/organizedata
+  script: organize.py
+  login: required
+
+- url: /[^/]*/tag/[^/]*/data
+  script: milestone.py
+  login: required
+
+- url: /[^/]*/tag/[^/]*/chartdata
+  script: milestone.py
+  login: required
+
+- url: /[^/]*/dashboard/[^/]*/data
+  script: dashboard.py
+  login: required
+
+- url: /[^/]*/export
+  script: export.py
+  login: required
+
+- url: /whoami
+  script: whoami.py
+  login: required
+
+# Main views
+
+- url: /[^/]*/organize
+  script: organize.py
+  login: required
+
+- url: /[^/]*/tag/.*
+  script: milestone.py
+  login: required
+
+- url: /[^/]*/dashboard/[^/]*
+  script: dashboard.py
+  login: required
+
+- url: /[^/]*/snapshot
+  script: snapshot.py
+  login: required
+
+- url: /[^/]*/progress
+  script: progress.py
+  login: required
+
+- url: /dailysnapundiscoverableurl
+  script: dailysnap.py
+
+- url: /[^/]*/progressdata/[^/]*
+  script: progress.py
+  login: required
+
+# Entity Creation and modification
+
+- url: /createproject
+  script: createproject.py
+  login: required
+
+- url: /createprojectaction
+  script: createproject.py
+  login: required
+
+- url: /.*/createsubproject
+  script: createsubproject.py
+  login: required
+
+- url: /.*/createfeature
+  script: createfeature.py
+  login: required
+
+# Task modification is allowed from dashboard and organize
+- url: /[^/]*/createtask
+  script: createtask.py
+  login: required
+
+# Entity Deletion
+
+- url: /[^/]*/deletesubproject
+  script: deletesubproject.py
+  login: required
+
+- url: /[^/]*/deletetask
+  script: deletetask.py
+  login: required
+
+- url: /[^/]*/deletefeature
+  script: deletefeature.py
+  login: required
+
+# If all else fails, show the default "home" page
+- url: /.*
+  script: home.py
+  login: required
+
+# Ignore closure, JS should be compiled before deploying
+skip_files:
+
+- ^js/closure.*

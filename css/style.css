@@ -1,0 +1,372 @@
+
+html {
+  font-family: arial, sans-serif;
+}
+
+#logo {
+  margin: 13px 8px 30px 8px;
+}
+
+#login_info {
+  width: 100%;
+  text-align: right;
+  padding: 3px 5px;
+  position: absolute;
+  font-size: small;
+  top: 0;
+  right: 0;
+}
+
+#login_info a, #milestones_menu_anchor {
+  text-decoration: none;
+  color: #0084DB; /* blue */
+  cursor: pointer;
+}
+
+h1, h2 {
+  background-color: #F1F1F1;
+  border: 1px solid #dedede;
+  margin: 8px;
+  padding: 3px;
+}
+
+h1 {
+  font-size: 130%;
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-size: 110%;
+}
+
+textarea {
+  /* Align text areas vertically with the other inputs. */
+  margin-bottom: -5px;
+}
+
+#home {
+  font-size: 200%;
+}
+
+/* Highlight lowest-level items */
+li li .editable:hover {
+  background-color: #FCFFBD;
+}
+
+#save_button, #cancel_button {
+  width: 60px;
+  height: 25px;
+  margin: 1px;
+}
+
+.features, .tasks, .subprojects {
+  list-style: none;
+}
+
+.subprojects {
+  padding-left: 15px;
+}
+
+.features {
+  padding-left: 15px;
+}
+
+.tasks {
+  padding-left: 0;
+  margin-top: 4px;
+  margin-left: 56px;
+  border-left: 1px solid #666;
+}
+
+.organize img {
+  vertical-align: middle;
+}
+
+/* Feature and Task display */
+
+.feature {
+  margin-top: 2px;
+  margin-bottom: 15px;
+}
+
+.feature_milestones {
+  font-size: 70%;
+  color: #999;
+}
+
+.zippy {
+  vertical-align: text-bottom;
+  margin-right: 4px;
+}
+
+.subproject_code, .feature_code, .task_code {
+  /* Don't show codes. */
+  display: none;
+  color: #bbb;
+}
+
+.subproject_title, .feature_title, .task_title {
+  display: inline-block;
+}
+
+.subproject_title, .feature_title {
+  font-weight: bold;
+}
+
+.subproject_owner, .feature_owner, .task_owner {
+  color: #006EFF;
+  margin: 0 1ex;
+  display: inline-block;
+}
+
+/* On the dashboard, all tasks are mine, no need to show owner. */
+#dashboard_container .task_owner {
+  display: none;
+}
+
+/* Hide progress bar on icebox tasks. */
+#icebox .progress_bar {
+  display: none;
+}
+
+/* Sub-project display */
+
+.subproject {
+  margin-bottom: 5px;
+}
+
+.subproject_code, .subproject_title {
+  font-size: 120%;
+}
+
+.subproject_title {
+  color: #7A001E; /* dark red */
+}
+
+/* Feature display */
+
+.feature_code, .feature_title {
+  font-size: 90%;
+}
+
+.feature_title {
+  color: #004691; /* dark blue */
+}
+
+/* Task display */
+
+.task {
+  padding-bottom: 2px;
+}
+
+.task_code, .task_title, .task_owner {
+  font-size: 80%;
+}
+
+.task_title {
+  color: #1D8500; /* dark green */
+}
+
+.task_even {
+  background-color: #eee;
+}
+
+.task_odd {
+  background-color: #fafafa;
+}
+
+.bugimg {
+  vertical-align: text-bottom;
+  margin-left: 5px;
+}
+
+/*               */
+/* Progress bars */
+/*               */
+
+/* Common */
+.progress_bar, .all_done {
+  position: relative;
+  display: inline-block;
+  /* right: 40%; */
+}
+
+.all_done {
+  width: 100px;
+  text-align: center;
+  margin: 0 6px;
+}
+
+.all_done img {
+  vertical-align: middle;
+}
+
+.all_done_time_spent {
+  font-size: small;
+}
+
+.progress_bar {
+  /* Width is set in JS code. */
+  border: 1px solid #444; /* grey */
+  margin: 4px 5px 0 5px;
+  background-color: white;
+  vertical-align: text-bottom;
+  /* float: right; */
+}
+
+.inner_progress_bar, .progress_bar_text {
+  position: absolute;
+  top: 0; left: 0;
+}
+
+.progress_bar_text {
+  width: 100%;
+  text-align: center;
+}
+
+/* Sizes */
+
+.smallpb, .smallpb .inner_progress_bar, .smallpb .progress_bar_text {
+  height: 13px;
+}
+
+.smallpb .inner_progress_bar {
+  background-color: #91FFC5; /* light green */
+}
+
+.smallpb .progress_bar_text {
+  font-size: x-small;
+}
+
+.mediumpb, .mediumpb .inner_progress_bar, .mediumpb .progress_bar_text {
+  height: 15px;
+}
+
+.mediumpb .inner_progress_bar {
+  background-color: #86EDFC; /* light blue */
+}
+
+.mediumpb .progress_bar_text {
+  font-size: small;
+}
+
+.largepb, .largepb .inner_progress_bar, .largepb .progress_bar_text {
+  height: 20px;
+}
+
+.largepb .inner_progress_bar {
+  background-color: #FFBDBD; /* light red */
+}
+
+.largepb .progress_bar_text {
+  font-size: medium;
+}
+
+#burndown {
+  text-align: center;
+}
+
+#chart {
+  width: 90%;
+  height: 350px;
+  display: inline-block;
+}
+
+/* Closure stuff */
+.goog-menu {
+  background: #fff;
+  border-color: #ccc #666 #666 #ccc;
+  border-style: solid;
+  border-width: 1px;
+  cursor: default;
+  font: normal 13px Arial, sans-serif;
+  margin: 0;
+  outline: none;
+  padding: 4px 0;
+  position: absolute;
+  z-index: 20000; /* Arbitrary, but some apps depend on it... */
+}
+
+/* State: resting. */
+.goog-menuitem {
+  color: #000;
+  font: normal 13px Arial, sans-serif;
+  list-style: none;
+  margin: 0;
+  /* 28px on the left for icon or checkbox; 7em on the right for shortcut. */
+  padding: 4px 7em 4px 28px;
+  white-space: nowrap;
+}
+
+/* If a menu doesn't have checkable items or items with icons, remove padding. */
+.goog-menu-nocheckbox .goog-menuitem,
+.goog-menu-noicon .goog-menuitem {
+  padding-left: 12px;
+}
+
+/*
+ * If a menu doesn't have items with shortcuts, leave just enough room for
+ * submenu arrows, if they are rendered.
+ */
+.goog-menu-noaccel .goog-menuitem {
+  padding-right: 20px;
+}
+
+.goog-menuitem-content {
+  color: #000;
+  font: normal 13px Arial, sans-serif;
+}
+
+/* State: disabled. */
+.goog-menuitem-disabled .goog-menuitem-accel,
+.goog-menuitem-disabled .goog-menuitem-content {
+  color: #ccc !important;
+}
+.goog-menuitem-disabled .goog-menuitem-icon {
+  opacity: 0.3;
+  -moz-opacity: 0.3;
+  filter: alpha(opacity=30);
+}
+
+/* State: hover. */
+.goog-menuitem-highlight,
+.goog-menuitem-hover, 
+.goog-menuitem:hover {
+  background-color: #d6e9f8;
+  /* Use an explicit top and bottom border so that the selection is visible
+   * in high contrast mode. */
+  border-color: #d6e9f8;
+  border-style: dotted;
+  border-width: 1px 0;
+  padding-bottom: 3px;
+  padding-top: 3px;
+}
+
+/* State: selected/checked. */
+.goog-menuitem-checkbox,
+.goog-menuitem-icon {
+  background-repeat: no-repeat;
+  height: 16px;
+  left: 6px;
+  position: absolute;
+  right: auto;
+  vertical-align: middle;
+  width: 16px;
+}
+.goog-option-selected .goog-menuitem-checkbox,
+.goog-option-selected .goog-menuitem-icon {
+  /* Client apps may override the URL at which they serve the sprite. */
+  background: url(//ssl.gstatic.com/editor/editortoolbar.png) no-repeat -512px 0;
+}
+
+/* Keyboard shortcut ("accelerator") style. */
+.goog-menuitem-accel {
+  color: #999;
+  /* Keyboard shortcuts are untranslated; always left-to-right. */
+  /* @noflip */ direction: ltr;
+  left: auto;
+  padding: 0 6px;
+  position: absolute;
+  right: 0;
+  text-align: right;
+}
