@@ -32,13 +32,13 @@ class SnapshotHandler(webapp2.RequestHandler):
     projectCode = urllib.unquote(projectCodeParam)
     project = Project.gql("WHERE code = '" + projectCode + "'").get()
     if project == None:
-      self.response.headers['Status'] = 403
+      self.response.headers['Status'] = str(403)
       self.response.out.write('No project with code ' + projectCode)
       return
 
     code = self.request.GET.get('code');
     if code == None or code == '':
-      self.response.headers['Status'] = 403
+      self.response.headers['Status'] = str(403)
       self.response.out.write('I need a snapshot code!')
       return
 
