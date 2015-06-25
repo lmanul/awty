@@ -59,8 +59,11 @@
               <small>&#9660;</small></span>
           <div id="milestones_menu" for="milestones_menu_anchor" class="goog-menu" style="display:none"> 
             {% for milestone in milestones %}
-            <a href="/{{ project_code }}/tag/{{ milestone }}">
-              <div class="goog-menuitem">{{ milestone }}</div></a>
+              <div class="goog-menuitem">
+                <a href="/{{ project_code }}/tag/{{ milestone }}">
+                  {{ milestone }}
+                </a>
+              </div>
             {% endfor %}
           </div>     
          {% endif %}
