@@ -19,9 +19,8 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
- 
 
-import simplejson as json
+import json
 import urllib
 import webapp2
 
@@ -30,6 +29,9 @@ from util import *
 
 class DashboardHandler(webapp2.RequestHandler):
   def get(self, projectParam, currentUser):
+    if currentUser == "me":
+      currentUser = Util.getUsernameFromEmail(
+          users.get_current_user().email())
     projectCode = urllib.unquote(projectParam)
     project = Project.gql("WHERE code = '" + projectCode + "'").get()
     if project == None:
@@ -76,6 +78,9 @@ class DashboardHandler(webapp2.RequestHandler):
 
 class DashboardDataHandler(webapp2.RequestHandler):
   def get(self, projectParam, currentUser):
+    if currentUser == "me":
+      currentUser = Util.getUsernameFromEmail(
+          users.get_current_user().email())
     myTasks = Task.gql("WHERE owner = '" + currentUser + "'")
 
     mySubprojectsArray = []

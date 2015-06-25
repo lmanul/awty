@@ -22,7 +22,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
  
 
-import simplejson as json
+import json
 import urllib
 import webapp2
 

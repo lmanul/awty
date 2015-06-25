@@ -22,7 +22,7 @@ from google.appengine.ext.webapp import template
  
 
 import datetime
-import simplejson as json
+import json
 import urllib
 import webapp2
 
