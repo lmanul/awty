@@ -45,7 +45,7 @@ class OrganizeHandler(webapp2.RequestHandler):
     });
 
     doneRendered = template.render('subsection.html', {
-      'title': 'Completed',
+      'title': '▶ Completed',
       'subsection_id': 'done',
       'isDoneSection': True,
     });

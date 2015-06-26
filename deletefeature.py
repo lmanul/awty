@@ -19,7 +19,6 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext import webapp
  
-
 import urllib
 import webapp2
 
@@ -58,9 +57,8 @@ class DeleteFeatureHandler(webapp2.RequestHandler):
       t.delete()
 
 
-  app = webapp2.WSGIApplication(
-          [
-            ('/(.*)/deletefeature', DeleteFeatureHandler),
-          ], debug=True)
+app = webapp2.WSGIApplication(
+        [
+          ('/(.*)/deletefeature', DeleteFeatureHandler),
+        ], debug=True)
   
-
