@@ -45,7 +45,7 @@ class DashboardHandler(webapp2.RequestHandler):
       'subsection_id': 'dashboard',
     });
     doneRendered = template.render('subsection.html', {
-      'title': ' Completed',
+      'title': ' ▶ Completed',
       'subsection_id': 'done',
       'isDoneSection': True,
     });
