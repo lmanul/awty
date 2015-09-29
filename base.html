@@ -53,9 +53,9 @@
           title="Only your active stuff">Dashboard</a> |
         <a href="/{{ project_code }}/organize" title="Add and organize tasks">Organize</a> |
         <a href="/{{ project_code }}/progress" title="What's cookin'">Progress</a> |
-        <a href="https://docs.google.com/a/google.com/spreadsheet/ccc?key=0Ao2QTtxLlLsydC10dThCZmxKV3BDRnF6ZjBpczRUanc" target="_new">File a bug</a>
+        <a href="https://docs.google.com/a/google.com/spreadsheet/ccc?key=0Ao2QTtxLlLsydC10dThCZmxKV3BDRnF6ZjBpczRUanc" target="_new">File a bug</a> | 
         {% if milestones %}
-          | <span id="milestones_menu_anchor" title="Progress on specific milestones">Tags
+          <span id="milestones_menu_anchor" title="Progress on specific milestones">Tags
               <small>&#9660;</small></span>
           <div id="milestones_menu" for="milestones_menu_anchor" class="goog-menu" style="display:none"> 
             {% for milestone in milestones %}
@@ -66,8 +66,10 @@
               </div>
             {% endfor %}
           </div>     
-         {% endif %}
-       {% endif %}
+        {% else %}
+          <a href="/{{ project_code }}/tag/all"><span id="milestones_menu_anchor" title="Progress on the project">Bird's Eye</span></a>
+        {% endif %}
+      {% endif %}
     </div>
     {{ content|safe }}
   </body>
