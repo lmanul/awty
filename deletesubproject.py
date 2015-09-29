@@ -51,7 +51,7 @@ class DeleteSubprojectHandler(webapp2.RequestHandler):
       return
     subproject.delete()
 
-    # Also delete all fetures and tasks related to this subproject.
+    # Also delete all features and tasks related to this subproject.
     allRelatedFeatures = Feature.gql("WHERE subprojectCode = '" +
         subproject.code + "'")
     for f in allRelatedFeatures:
