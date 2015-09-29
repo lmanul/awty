@@ -61,7 +61,7 @@ class DeleteSubprojectHandler(webapp2.RequestHandler):
       f.delete()
 
 
-  app = webapp2.WSGIApplication(
-          [
-            ('/(.*)/deletesubproject', DeleteSubprojectHandler),
-          ], debug=True)
+app = webapp2.WSGIApplication(
+        [
+          ('/(.*)/deletesubproject', DeleteSubprojectHandler),
+        ], debug=True)
