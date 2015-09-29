@@ -93,7 +93,7 @@ class MilestoneDataHandler(webapp2.RequestHandler):
     #if cachedData is not None:
     #  self.response.out.write(cachedData)
     #  return
-    if milestoneParam is "all":
+    if milestoneParam == "all":
       allRelatedFeatures = Feature.gql("")
     else:
       allRelatedFeatures = Feature.gql("WHERE tags = '" + milestoneParam + "'")
@@ -140,7 +140,7 @@ class MilestoneChartDataHandler(webapp2.RequestHandler):
     relatedFeatures = []
     allSubprojects = Subproject.gql("WHERE projectCode = '" + projectCode + "'")
     for s in allSubprojects:
-      if milestone is "all":
+      if milestoneParam == "all":
         featuresHere = Feature.gql("WHERE subprojectCode = '" + s.code)
       else:
         featuresHere = Feature.gql("WHERE subprojectCode = '" + s.code + \
