@@ -39,7 +39,7 @@ class OrganizeHandler(webapp2.RequestHandler):
       return
 
     organizeRendered = template.render('section.html', {
-      'title': project.title + ' (in progress)',
+      'title': project.title,
       'section_id': 'organize',
       'content': 'Loading...'
     });
